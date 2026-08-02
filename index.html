@@ -349,9 +349,24 @@ body{font-family:'Manrope',sans-serif;background:#F6F3EC!important;color:#1C1B1F
 </div>
 
 <script>
-const GUMROAD = 'https://gumroad.com/nsag';
 const BOOK = 'https://outlook.office.com/bookwithme/user/3ff7c8299177431a8fc2b099238c5e43@northeastern.edu?anonymous&ismsaljsauthenabled&ep=plink';
 const API   = 'https://nsag-api.vercel.app/api/lead';
+
+function requestToolkit(btn, moduleTag) {
+  try {
+    var emailEl = document.getElementById('gate-email');
+    var email = (emailEl && emailEl.value) ? emailEl.value.trim() : '';
+    fetch(API, {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email: email, source: 'toolkit-waitlist-' + moduleTag,
+        message: 'Requested to purchase the ' + moduleTag + ' Governance Toolkit (waitlist — not yet available for checkout)',
+        timestamp: new Date().toISOString()})
+    }).catch(function(){});
+  } catch (e) {}
+  btn.disabled = true;
+  btn.style.cursor = 'default';
+  btn.style.opacity = '0.85';
+  btn.textContent = "You're on the list — I'll email you personally, usually within a day.";
+}
 const DIM_NAMES = ['Acoustic Standards', 'Lighting & Circadian Governance', 'Single-Room & Privacy Standards', 'Wayfinding & Cognitive Load', 'Nature Integration', 'Sensory Environment Governance'];
 
 const QUESTIONS = [
@@ -567,7 +582,7 @@ function revealResults() {
     rec = 'Your institution has real built-environment governance practices in place, but they are not yet systemic across every capital project. Most institutions at this tier reach PIONEERING within one capital-planning cycle focused on the lowest-scoring dimension.';
     bridgeLabel = 'What to do with an EMERGING result';
     bridgeText = 'You have governance in place. The gap to PIONEERING is in dimensions that are partially implemented — practice exists but policy does not. The M10 Governance Toolkit contains specific policy language for each gap and a 90-day roadmap for institutions at your exact tier.';
-    bridgeBtns = '<a href="' + GUMROAD + '" target="_blank" class="bridge-btn-primary" style="background:#4D45A8">Get the M10 Governance Toolkit — $500</a>'
+    bridgeBtns = '<button type="button" onclick="requestToolkit(this,\'M10\')" class="bridge-btn-primary" style="background:#4D45A8;border:none;cursor:pointer;font:inherit">Join the M10 Toolkit Waitlist — $500</button>'
               + '<a href="' + BOOK + '" class="bridge-btn-secondary" style="border:1.5px solid #4D45A8;color:#4D45A8">Book a Discovery Call</a>';
     crossModule = 'Your lowest dimension, ' + DIM_NAMES[minDim] + ', is where a focused capital-planning cycle will move you fastest toward PIONEERING.';
   } else if (avg >= 1.5) {
@@ -575,7 +590,7 @@ function revealResults() {
     rec = 'Your institution is meeting baseline facilities requirements without yet designing for the documented clinical effects of acoustic, lighting, privacy, and sensory conditions. Governance exists in some dimensions — a noise-complaint process here, a lighting preference there — but depends on which facilities manager or clinical champion happens to raise it, not a standing capital-planning requirement.';
     bridgeLabel = 'What to do with a DEVELOPING result';
     bridgeText = 'Your practices work — right now they live in the people who carry them. Writing them into policy is what makes them hold when those people move on. The M10 Governance Toolkit contains policy language templates for all six dimensions, a 90-day action plan built for DEVELOPING institutions, and the measurement framework for proving progress to leadership.';
-    bridgeBtns = '<a href="' + GUMROAD + '" target="_blank" class="bridge-btn-primary" style="background:#956B18">Get the M10 Governance Toolkit — $500</a>'
+    bridgeBtns = '<button type="button" onclick="requestToolkit(this,\'M10\')" class="bridge-btn-primary" style="background:#956B18;border:none;cursor:pointer;font:inherit">Join the M10 Toolkit Waitlist — $500</button>'
               + '<a href="' + BOOK + '" class="bridge-btn-secondary" style="border:1.5px solid #956B18;color:#956B18">Book a Discovery Call</a>';
     pioneeringExample = 'What PIONEERING looks like on the way there: A mid-size hospital adopted formal acoustic standards for its ICU and added circadian-adjusted lighting schedules for night shifts. The remaining gap was wayfinding — signage still used room numbers rather than landmarks — which the facilities team addressed by testing a landmark-based system with stroke-recovery patients before the next renovation.';
     crossModule = 'Your ' + DIM_NAMES[minDim] + ' gap is the highest-leverage starting point. If your built-environment governance needs to extend beyond healthcare facilities to the surrounding built environment, the M7 Challenge addresses city-scale design accountability.';
@@ -584,7 +599,7 @@ function revealResults() {
     rec = 'Your clinical environment is very likely producing measurable, avoidable harm — sleep-disrupting noise and light, privacy-compromising room assignments, cognitively inaccessible wayfinding — that six hundred studies say is foreseeable and correctable. This is a design-governance problem with a design-governance solution: one standard, written into the next capital design brief, is where PIONEERING institutions started.';
     bridgeLabel = 'What to do with an EARLY STAGE result';
     bridgeText = 'Most institutions begin here. The fastest path out is one concrete action this week and a governance document in your hands. The M10 Governance Toolkit gives you a 90-day roadmap, specific policy language, and measurement criteria to prove progress to leadership.';
-    bridgeBtns = '<a href="' + GUMROAD + '" target="_blank" class="bridge-btn-primary" style="background:#6B2937">Get the M10 Governance Toolkit — $500</a>'
+    bridgeBtns = '<button type="button" onclick="requestToolkit(this,\'M10\')" class="bridge-btn-primary" style="background:#6B2937;border:none;cursor:pointer;font:inherit">Join the M10 Toolkit Waitlist — $500</button>'
               + '<a href="' + BOOK + '" class="bridge-btn-secondary" style="border:1.5px solid #6B2937;color:#6B2937">Book a Discovery Call</a>';
     pioneeringExample = "What PIONEERING looks like here: A behavioral health hospital adopted formal acoustic standards (NC-40 for sleep areas), a circadian lighting plan, and a sensory environment review for every patient unit. Their patient-reported sleep quality scores improved 28% in six months. The facilities team now has a governance checklist that travels with every capital renovation project — acoustic and lighting standards are reviewed before a design is finalized."
     crossModule = "Healthcare built environment governance connects to burnout governance — staff spend more time in these environments than patients do. Take the M8 Challenge to assess your staff wellbeing governance. If your facility includes long-term or isolation care settings, take the M15 Challenge."
