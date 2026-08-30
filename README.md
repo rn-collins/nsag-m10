@@ -1,6 +1,6 @@
-# NSAG M10 — Clinical Governance
+# NSAG M10 — Healthcare Built Environment
 
-Retired NSAG prototype module covering Clinical Governance.
+Retired standalone deployment of NSAG module M10, Healthcare Built Environment (Healthcare & Clinical). The module's canonical page is https://nsag-site.vercel.app/m10.
 
 **Live:** https://nsag-m10.vercel.app
 
@@ -10,7 +10,7 @@ This prototype has been retired. The deployment remains online as a record; it i
 
 ## Repository contents
 
-`index.html`, `vercel.json`
+`index.html`, `vercel.json`, `og.png`, `favicon.svg`, `apple-touch-icon.png`
 
 ## Local development
 
